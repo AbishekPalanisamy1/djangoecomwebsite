@@ -1,0 +1,40 @@
+{% extends "shop/layouts/main.html" %}
+
+{% block title %} 
+Shop Cart | Online Shopping
+{% endblock title %}
+
+{% block content %}
+<section class="bg-light py-4 my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="mb-3"> {{category__name}} Products</h4>
+                <hr style="border-bottom: rgb(110, 109, 109);">
+                {% include 'shop/inc/message.html '%}
+            </div>
+        </div>
+
+        <div class="row">  
+            {% for item in products %}
+            <div class="col-md-4 col-lg-3">  
+                <a href="{% url 'product_details' category__name item.name %}" style="text-decoration: none;">
+                    <div class="card my-3">
+                        {% if item.product_image %}
+                        <img src="{{ item.product_image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 200px; width: auto;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.name }}</h5>
+                            <p class="card-text">
+                                <span class="float-start old price"> <s>{{ item.original_price }}</s></span>
+                                <span class="float-end new_price"> {{ item.selling_price }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>  
+    </div>
+</section>
+{% endblock content %}
